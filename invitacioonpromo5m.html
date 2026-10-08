@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo Adhys 2026 🎓 | Politécnico Regional del Centro</title>
+    
+    <!-- Fuentes Elegantes de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Librería para el efecto Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #0a192f;
+            --accent: #d4af37;
+            --accent-light: #f3e5ab;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-light: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at top, #1e293b, #0f172a);
+            color: var(--text-light);
+            text-align: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Tarjeta Contenedora Principal */
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 40px 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .badge-colegio {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent-light);
+            border: 1px solid var(--accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        .seccion-grado {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Contador Regresivo */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .time-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 12px;
+            min-width: 70px;
+        }
+
+        .time-block span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+
+        .time-block label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* Botón Flotante de Música */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estilos del Formulario RSVP */
+        .rsvp-section {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px dashed rgba(212, 175, 55, 0.3);
+        }
+
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 450px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .rsvp-form input, 
+        .rsvp-form select,
+        .rsvp-form textarea {
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: rgba(15, 23, 42, 0.7);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .rsvp-form input:focus, 
+        .rsvp-form select:focus,
+        .rsvp-form textarea:focus {
+            border-color: var(--accent);
+        }
+
+        /* Botón de Enviar */
+        .btn-submit {
+            background: linear-gradient(135deg, #d4af37, #aa7c11);
+            color: #000;
+            font-weight: 700;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        #mensajeEstado {
+            margin-top: 15px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botón Flotante para Música -->
+    <button class="music-btn" onclick="toggleAudio()" title="Activar/Pausar música">🎵</button>
+    
+    <!-- Audio de Fondo -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <!-- Distintivo Institucional -->
+        <div class="badge-colegio">I.E. Politécnico Regional del Centro - El Tambo</div>
+
+        <h1>PROMO ADHYS 2026</h1>
+        <div class="seccion-grado">5.° "M"</div>
+        
+        <p>✨ Acompáñanos a celebrar el fin de una gran etapa y el inicio de un gran camino ✨</p>
+
+        <!-- Contador Regresivo -->
+        <h2>FALTAN POCOS DÍAS</h2>
+        <div class="countdown-container">
+            <div class="time-block"><span id="days">00</span><label>Días</label></div>
+            <div class="time-block"><span id="hours">00</span><label>Horas</label></div>
+            <div class="time-block"><span id="minutes">00</span><label>Min</label></div>
+            <div class="time-block"><span id="seconds">00</span><label>Seg</label></div>
+        </div>
+
+        <!-- FORMULARIO DE ASISTENCIA -->
+        <div class="rsvp-section">
+            <h2>💌 CONFIRMA TU ASISTENCIA</h2>
+            <p style="font-size: 0.9rem; opacity: 0.9;">Por favor, completa los datos para registrar tu lugar:</p>
+
+            <form id="rsvpForm" class="rsvp-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="nombre" placeholder="Ej. Juan Pérez" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Número de WhatsApp:</label>
+                    <input type="tel" id="telefono" placeholder="Ej. 987654321" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="asistencia">¿Asistirás a la ceremonia/fiesta?</label>
+                    <select id="asistencia" required>
+                        <option value="Sí, asistiré">¡Sí, ahí estaré! 🎉</option>
+                        <option value="No podré asistir">Lamentablemente no podré asistir 😢</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="acompanantes">Número de acompañantes:</label>
+                    <input type="number" id="acompanantes" min="0" max="5" value="0">
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    ✨ Confirmar Registro
+                </button>
+            </form>
+
+            <p id="mensajeEstado"></p>
+        </div>
+    </div>
+
+    <script>
+        // 1. Contador Regresivo (26 de Diciembre 2026 - 12:00 PM)
+        const fechaEvento = new Date("December 26, 2026 12:00:00").getTime();
+
+        function actualizarContador() {
+            const ahora = new Date().getTime();
+            const diferencia = fechaEvento - ahora;
+
+            if (diferencia > 0) {
+                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+                document.getElementById("days").textContent = dias < 10 ? "0" + dias : dias;
+                document.getElementById("hours").textContent = horas < 10 ? "0" + horas : horas;
+                document.getElementById("minutes").textContent = minutos < 10 ? "0" + minutos : minutos;
+                document.getElementById("seconds").textContent = segundos < 10 ? "0" + segundos : segundos;
+            }
+        }
+
+        setInterval(actualizarContador, 1000);
+        actualizarContador();
+
+        // 2. Control de Música
+        const audio = document.getElementById("bgMusic");
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+
+        // 3. Envío de datos hacia n8n
+        const N8N_WEBHOOK_URL = "https://webhook.polirc.edu.pe/webhook/asistencia-promo"; 
+
+        document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const mensajeP = document.getElementById('mensajeEstado');
+            mensajeP.style.color = "#d4af37";
+            mensajeP.textContent = "Enviando tu confirmación...";
+
+            const datosInvito = {
+                colegio: "I.E. Politécnico Regional del Centro - El Tambo",
+                seccion: "5M",
+                nombre: document.getElementById('nombre').value,
+                telefono: document.getElementById('telefono').value,
+                asistencia: document.getElementById('asistencia').value,
+                acompanantes: document.getElementById('acompanantes').value,
+                fecha_registro: new Date().toLocaleString("es-PE")
+            };
+
+            try {
+                const respuesta = await fetch(N8N_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datosInvito)
+                });
+
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+
+                mensajeP.style.color = "#4ade80";
+                mensajeP.textContent = "¡Gracias por confirmar! Tu respuesta se ha guardado con éxito. ✨";
+                document.getElementById('rsvpForm').reset();
+
+            } catch (error) {
+                console.error("Error al conectar:", error);
+                mensajeP.style.color = "#f87171";
+                mensajeP.textContent = "Hubo un problema al enviar tu confirmación. Inténtalo nuevamente.";
+            }
+        });
+    </script>
+</body>
+</html>
